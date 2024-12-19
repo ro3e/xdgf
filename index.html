@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Clicker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+        }
+        button, input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Auto Clicker</h1>
+        <label for="interval">Click Interval (ms): </label>
+        <input type="number" id="interval" value="1000">
+        <br>
+        <label for="element">Target Element Selector: </label>
+        <input type="text" id="element" placeholder="e.g., #button">
+        <br>
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+    </div>
+
+    <script>
+        let intervalId;
+
+        document.getElementById('start').addEventListener('click', () => {
+            const interval = document.getElementById('interval').value;
+            const elementSelector = document.getElementById('element').value;
+            if (!elementSelector) {
+                alert('Please provide a valid element selector.');
+                return;
+            }
+            intervalId = setInterval(() => {
+                const targetElement = document.querySelector(elementSelector);
+                if (targetElement) {
+                    targetElement.click();
+                } else {
+                    console.log(`Element not found: ${elementSelector}`);
+                }
+            }, interval);
+        });
+
+        document.getElementById('stop').addEventListener('click', () => {
+            clearInterval(intervalId);
+        });
+    </script>
+</body>
+</html>
